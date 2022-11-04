@@ -6,22 +6,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 df = pd.read_csv('dataset/Preprocessed_data.csv')
 
-
-df.dropna(inplace=True)
-df.reset_index(drop=True, inplace=True)
-
-df.drop(columns = ['Unnamed: 0','location','isbn',
-                   'img_s','img_m','city','age',
-                   'state','Language','country',
-                   'year_of_publication'],axis=1,inplace = True) #remove useless cols
-
-df.drop(index=df[df['Category'] == '9'].index, inplace=True) #remove 9 in category
-
-df.drop(index=df[df['rating'] == 0].index, inplace=True) #remove 0 in rating
-
-df['Category'] = df['Category'].apply(lambda x: re.sub('[\W_]+',' ',x).strip())
-
-
 def content_based_recommender(book_title):
     
     book_title = str(book_title)
